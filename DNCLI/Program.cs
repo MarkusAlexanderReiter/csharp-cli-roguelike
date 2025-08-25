@@ -11,7 +11,8 @@
             Console.WriteLine($"Player Wisdom: {player.Wisdom}");
             Console.WriteLine($"Player Intelligence: {player.Intelligence}");
             Console.WriteLine($"Player Charisma: {player.Charisma}");
-
+            Console.WriteLine($"Player MaxHealth: {player.MaxHealth}");
+            Console.WriteLine($"Player ArmorClass: {player.ArmorClass}");
         }
     }
 }

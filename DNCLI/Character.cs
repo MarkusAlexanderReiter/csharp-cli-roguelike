@@ -8,6 +8,8 @@ public class Character
     public int Intelligence { get; set; }
     public int Wisdom { get; set; }
     public int Charisma { get; set; }
+    public int MaxHealth { get; set; }
+    public int ArmorClass { get; set; }
 
     public Character()
     {
@@ -18,7 +20,7 @@ public class Character
         Intelligence = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
         Wisdom = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
         Charisma = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-
-
+        MaxHealth = 10 + GameRules.CalculateModifier(Constitution);
+        ArmorClass = 10 + GameRules.CalculateModifier(Dexterity);
     }
 }
