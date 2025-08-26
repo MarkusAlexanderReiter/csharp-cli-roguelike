@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Character player = new Character();
+            Character player = new Warrior();
+            Character monster = new Character();
+            Console.WriteLine("=========Player Stats=========");
             Console.WriteLine($"Player Strength: {player.Strength}");
             Console.WriteLine($"Player Dexterity: {player.Dexterity}");
             Console.WriteLine($"Player Constitution: {player.Constitution}");
@@ -13,6 +15,17 @@
             Console.WriteLine($"Player Charisma: {player.Charisma}");
             Console.WriteLine($"Player MaxHealth: {player.MaxHealth}");
             Console.WriteLine($"Player ArmorClass: {player.ArmorClass}");
+            Console.WriteLine(" ");
+            Console.WriteLine("=========Monster Stats=========");
+            Console.WriteLine($"Monster Strength: {monster.Strength}");
+            Console.WriteLine($"Monster Dexterity: {monster.Dexterity}");
+            Console.WriteLine($"Monster Constitution: {monster.Constitution}");
+            Console.WriteLine($"Monster Wisdom: {monster.Wisdom}");
+            Console.WriteLine($"Monster Intelligence: {monster.Intelligence}");
+            Console.WriteLine($"Monster Charisma: {monster.Charisma}");
+            Console.WriteLine($"Monster MaxHealth: {monster.MaxHealth}");
+            Console.WriteLine($"Monster ArmorClass: {monster.ArmorClass}");
+            
         }
     }
 }

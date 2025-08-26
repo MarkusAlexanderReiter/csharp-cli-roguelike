@@ -1,4 +1,6 @@
-﻿namespace DNCLI;
+﻿using System.Runtime.InteropServices.ComTypes;
+
+namespace DNCLI;
 
 public class Character
 {
@@ -23,7 +25,6 @@ public class Character
         Random random = new Random();
         return random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
     }
-
     protected virtual void AssignStats()
     {
         Strength = RollStat();
@@ -32,5 +33,17 @@ public class Character
         Intelligence = RollStat();
         Wisdom = RollStat();
         Charisma = RollStat();
+    }
+
+    public void Attack(Character defender)
+    {
+        Random random = new Random();
+        int attackRoll = random.Next(1, 21);
+        int defenderArmourClass = defender.ArmorClass;
+
+        if (attackRoll > defenderArmourClass)
+        {
+            
+        }
     }
 }
