@@ -2,7 +2,7 @@
 
 public class Warrior : Character // : means it inherits from
 {
-    public Warrior()
+    protected override void AssignStats()
     {
         Strength = Roll4d6DropLowest();
         Dexterity = base.RollStat();
@@ -10,10 +10,8 @@ public class Warrior : Character // : means it inherits from
         Intelligence = base.RollStat();
         Wisdom = base.RollStat();
         Charisma = base.RollStat();
-        MaxHealth = 10 + GameRules.CalculateModifier(Constitution);
-        ArmorClass = 10 + GameRules.CalculateModifier(Dexterity);
     }
-    
+
     private int Roll4d6DropLowest()
     {
         Random random = new Random();

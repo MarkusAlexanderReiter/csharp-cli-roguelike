@@ -13,12 +13,7 @@ public class Character
 
     public Character()
     {
-        Strength = RollStat();
-        Dexterity = RollStat();
-        Constitution = RollStat();
-        Intelligence = RollStat();
-        Wisdom = RollStat();
-        Charisma = RollStat();
+        AssignStats();
         MaxHealth = 10 + GameRules.CalculateModifier(Constitution);
         ArmorClass = 10 + GameRules.CalculateModifier(Dexterity);
     }
@@ -27,5 +22,15 @@ public class Character
     {
         Random random = new Random();
         return random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
+    }
+
+    protected virtual void AssignStats()
+    {
+        Strength = RollStat();
+        Dexterity = RollStat();
+        Constitution = RollStat();
+        Intelligence = RollStat();
+        Wisdom = RollStat();
+        Charisma = RollStat();
     }
 }
