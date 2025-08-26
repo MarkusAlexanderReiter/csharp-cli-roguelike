@@ -13,14 +13,19 @@ public class Character
 
     public Character()
     {
-        Random random = new Random();
-        Strength = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-        Dexterity = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-        Constitution = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-        Intelligence = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-        Wisdom = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-        Charisma = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
+        Strength = RollStat();
+        Dexterity = RollStat();
+        Constitution = RollStat();
+        Intelligence = RollStat();
+        Wisdom = RollStat();
+        Charisma = RollStat();
         MaxHealth = 10 + GameRules.CalculateModifier(Constitution);
         ArmorClass = 10 + GameRules.CalculateModifier(Dexterity);
+    }
+    
+    protected virtual int RollStat() //protected = private but child classes can access, virtual = can be overridden
+    {
+        Random random = new Random();
+        return random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
     }
 }
