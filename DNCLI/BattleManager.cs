@@ -35,33 +35,37 @@ public class BattleManager
     private void HandlePlayerTurn()
     {
         Console.WriteLine("What will you do?\n1. Attack\n2. Flee");
-        var input = Console.ReadLine();
-        if (int.TryParse(input, out int choice))
+        while (true)
         {
-            if (choice == 1)
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out int choice))
             {
-
-                if (Enemies.Count > 1)
+                if (choice == 1)
                 {
-                    var enemy = SelectEnemyTarget(Enemies);
-                    CombatCalculations.Attack(Player, enemy);
-                }
 
-                else
-                {
-                    CombatCalculations.Attack(Player, Enemies[0]);
+                    if (Enemies.Count > 1)
+                    {
+                        var enemy = SelectEnemyTarget(Enemies);
+                        CombatCalculations.Attack(Player, enemy);
+                    }
+
+                    else
+                    {
+                        CombatCalculations.Attack(Player, Enemies[0]);
+                    }
+
+                    State = GameEnums.BattleState.EnemyTurn;
+                    break;
                 }
-                                
-                State = GameEnums.BattleState.EnemyTurn;
+                else if (choice == 2)
+                {
+                    FleeCalculation(Player, Enemies);
+                }
             }
-            else if (choice == 2)
+            else
             {
-                FleeCalculation(Player, Enemies);
+                Console.WriteLine("Please enter a number between 1 and 2.");
             }
-        }
-        else
-        {
-            Console.WriteLine("Please enter a number between 1 and 2.");
         }
     }
     public void FleeCalculation(Character player, List<Character> enemies)

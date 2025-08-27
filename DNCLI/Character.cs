@@ -15,6 +15,7 @@ public class Character
     public int ArmorClass { get; set; }
     public int CurrentHealth { get; set; }
     public string Name { get; set; }
+    public bool IsDead => CurrentHealth <= 0;
     
     #endregion
 
@@ -62,7 +63,7 @@ public class Character
     
     public void ApplyDamage(int damage)
     {
-        CurrentHealth -= damage;
+        CurrentHealth = Math.Max(CurrentHealth - damage, 0); //Math.Max returns the bigger of the two values
     }
     
 }
