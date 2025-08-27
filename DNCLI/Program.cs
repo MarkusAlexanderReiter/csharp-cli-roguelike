@@ -6,7 +6,7 @@
         {
             Character player = new Warrior();
             Character monster = new Character();
-            Console.WriteLine("=========Player Stats=========");
+            Console.WriteLine($"========={player.Name} Stats=========");
             Console.WriteLine($"Player Strength: {player.Strength}");
             Console.WriteLine($"Player Dexterity: {player.Dexterity}");
             Console.WriteLine($"Player Constitution: {player.Constitution}");
@@ -16,7 +16,7 @@
             Console.WriteLine($"Player MaxHealth: {player.MaxHealth}");
             Console.WriteLine($"Player ArmorClass: {player.ArmorClass}");
             Console.WriteLine(" ");
-            Console.WriteLine("=========Monster Stats=========");
+            Console.WriteLine($"========={monster.Name} Stats=========");
             Console.WriteLine($"Monster Strength: {monster.Strength}");
             Console.WriteLine($"Monster Dexterity: {monster.Dexterity}");
             Console.WriteLine($"Monster Constitution: {monster.Constitution}");
