@@ -25,7 +25,7 @@
             Console.WriteLine($"Monster Charisma: {monster.Charisma}");
             Console.WriteLine($"Monster MaxHealth: {monster.MaxHealth}");
             Console.WriteLine($"Monster ArmorClass: {monster.ArmorClass}");
-            
+            Console.WriteLine("What will you do? " + "1. Attack" + "2. Flee");
         }
     }
 }
