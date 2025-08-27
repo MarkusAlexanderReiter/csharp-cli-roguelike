@@ -66,8 +66,6 @@ public class BattleManager
     }
     public void FleeCalculation(Character player, List<Character> enemies)
     {
-        Player = player;
-        Enemies = enemies;
         int playerFleeChance = GameRules.DiceRoll(1, 21) + GameRules.CalculateModifier(Player.Dexterity);
         bool escaped = true; //Assume success until someone beats the player
         foreach (var enemy in enemies)
@@ -90,8 +88,8 @@ public class BattleManager
         foreach (var enemy in Enemies)
         {
             CombatCalculations.Attack(enemy, Player);
-            State  = GameEnums.BattleState.PlayerTurn;
         }
+        State  = GameEnums.BattleState.PlayerTurn;
     }
     private Character SelectEnemyTarget(List<Character> enemies)
     {
