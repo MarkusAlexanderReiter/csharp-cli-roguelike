@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-
-namespace DNCLI;
+﻿namespace DNCLI;
 
 public class BattleManager
 {
@@ -53,13 +51,12 @@ public class BattleManager
                     else if (Enemies.Count == 1)
                     {
                         CombatCalculations.Attack(Player, Enemies[0]);
+                        State = GameEnums.BattleState.EnemyTurn;
                     }
                     else
                     {
                         State = GameEnums.BattleState.BattleOver;
                     }
-
-                    State = GameEnums.BattleState.EnemyTurn;
                     break;
                 }
                 else if (choice == 2)
@@ -77,21 +74,27 @@ public class BattleManager
     public void FleeCalculation(Character player, List<Character> enemies)
     {
         int playerFleeChance = GameRules.DiceRoll(1, 21) + GameRules.CalculateModifier(player.Dexterity);
-        bool escaped = true; //Assume success until someone beats the player
+        Character blocker = null;
+
         foreach (var enemy in enemies)
         {
             int enemyRoll = GameRules.DiceRoll(1, 21) + GameRules.CalculateModifier(enemy.Dexterity);
-            if (enemyRoll > playerFleeChance)
+            if (enemyRoll >= playerFleeChance) //tie still succeeds
             {
-                escaped = false;
-                Console.WriteLine($"{enemy.Name} cuts you off!");
-                State = GameEnums.BattleState.EnemyTurn;
+                blocker = enemy;
+                break;
             }
         }
-        if (escaped)
+
+        if (blocker == null)
         {
             Console.WriteLine("You fled the battle!");
             State = GameEnums.BattleState.BattleOver;
+        }
+        else
+        {
+            Console.WriteLine($"{blocker.Name} cuts you off!");
+            State = GameEnums.BattleState.EnemyTurn;
         }
     }
     private void HandleEnemiesTurn()
