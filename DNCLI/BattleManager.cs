@@ -25,7 +25,7 @@ public class BattleManager
 
                     break;
                 case GameEnums.BattleState.EnemyTurn:
-                    //TODO implement enemy logic, each enemy attacks player
+                    HandleEnemiesTurn();
                     break;
 
             }
@@ -64,28 +64,6 @@ public class BattleManager
             Console.WriteLine("Please enter a number between 1 and 2.");
         }
     }
-
-    private Character SelectEnemyTarget(List<Character> enemies)
-    {
-        while (true)
-        {
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {enemies[i].Name}");
-            }
-    
-            var enemyChoice = Console.ReadLine();
-            if (int.TryParse(enemyChoice, out int chosenEnemy) && chosenEnemy <= enemies.Count && chosenEnemy > 0)
-            {
-                return enemies[chosenEnemy-1];
-            }
-            else
-            {
-                Console.WriteLine("Please choose a valid enemy to attack");
-            }
-        }
-    }
-    
     public void FleeCalculation(Character player, List<Character> enemies)
     {
         Player = player;
@@ -107,5 +85,37 @@ public class BattleManager
             State = GameEnums.BattleState.BattleOver;
         }
     }
+    private void HandleEnemiesTurn()
+    {
+        foreach (var enemy in Enemies)
+        {
+            CombatCalculations.Attack(enemy, Player);
+            State  = GameEnums.BattleState.PlayerTurn;
+        }
+    }
+    private Character SelectEnemyTarget(List<Character> enemies)
+    {
+        while (true)
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {enemies[i].Name}");
+            }
+    
+            var enemyChoice = Console.ReadLine();
+            if (int.TryParse(enemyChoice, out int chosenEnemy) && chosenEnemy <= enemies.Count && chosenEnemy > 0)
+            {
+                return enemies[chosenEnemy-1];
+            }
+            else
+            {
+                Console.WriteLine("Please choose a valid enemy to attack");
+            }
+        }
+    }
 
+    private void IsBattleOver()
+    {
+        //is player dead or all enemies dead?
+    }
 }
