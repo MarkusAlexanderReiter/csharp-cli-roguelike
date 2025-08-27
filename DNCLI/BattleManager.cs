@@ -60,6 +60,7 @@ public class BattleManager
                 else if (choice == 2)
                 {
                     FleeCalculation(Player, Enemies);
+                    break;
                 }
             }
             else
@@ -70,7 +71,7 @@ public class BattleManager
     }
     public void FleeCalculation(Character player, List<Character> enemies)
     {
-        int playerFleeChance = GameRules.DiceRoll(1, 21) + GameRules.CalculateModifier(Player.Dexterity);
+        int playerFleeChance = GameRules.DiceRoll(1, 21) + GameRules.CalculateModifier(player.Dexterity);
         bool escaped = true; //Assume success until someone beats the player
         foreach (var enemy in enemies)
         {
@@ -78,7 +79,8 @@ public class BattleManager
             if (enemyRoll > playerFleeChance)
             {
                 escaped = false;
-                Console.WriteLine($"{enemy} cuts you off!");
+                Console.WriteLine($"{enemy.Name} cuts you off!");
+                State = GameEnums.BattleState.EnemyTurn;
             }
         }
         if (escaped)
