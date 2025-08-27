@@ -1,4 +1,6 @@
-﻿namespace DNCLI;
+﻿using System.ComponentModel.Design;
+
+namespace DNCLI;
 
 public class BattleManager
 {
@@ -48,10 +50,13 @@ public class BattleManager
                         var enemy = SelectEnemyTarget(Enemies);
                         CombatCalculations.Attack(Player, enemy);
                     }
-
-                    else
+                    else if (Enemies.Count == 1)
                     {
                         CombatCalculations.Attack(Player, Enemies[0]);
+                    }
+                    else
+                    {
+                        State = GameEnums.BattleState.BattleOver;
                     }
 
                     State = GameEnums.BattleState.EnemyTurn;
