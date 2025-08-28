@@ -16,6 +16,7 @@ public class Character
     public int CurrentHealth { get; set; }
     public string Name { get; set; }
     public bool IsDead => CurrentHealth <= 0;
+    public bool IsAlive => !IsDead;
     
     #endregion
 

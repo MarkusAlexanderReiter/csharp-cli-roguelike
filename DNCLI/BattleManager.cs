@@ -5,6 +5,7 @@ public class BattleManager
     public Character Player { get; set; }
     public List<Character> Enemies { get; set; }
     public GameEnums.BattleState State { get; set; }
+    public GameEnums.BattleOutcome Outcome { get; private set; }
     
     public BattleManager(Character player, List<Character> enemies)
     {
@@ -42,15 +43,17 @@ public class BattleManager
             {
                 if (choice == 1)
                 {
-
                     if (Enemies.Count > 1)
                     {
                         var enemy = SelectEnemyTarget(Enemies);
                         CombatCalculations.Attack(Player, enemy);
+                        if (TryEndBattle()) return;
+                        State = GameEnums.BattleState.EnemyTurn;
                     }
                     else if (Enemies.Count == 1)
                     {
                         CombatCalculations.Attack(Player, Enemies[0]);
+                        if (TryEndBattle()) return;
                         State = GameEnums.BattleState.EnemyTurn;
                     }
                     else
@@ -99,9 +102,10 @@ public class BattleManager
     }
     private void HandleEnemiesTurn()
     {
-        foreach (var enemy in Enemies)
+        foreach (var enemy in Enemies.ToArray())
         {
             CombatCalculations.Attack(enemy, Player);
+            if (TryEndBattle()) return;
         }
         State  = GameEnums.BattleState.PlayerTurn;
     }
@@ -126,8 +130,26 @@ public class BattleManager
         }
     }
 
-    private void IsBattleOver()
+    private bool TryEndBattle()
     {
-        //is player dead or all enemies dead?
+        if (State == GameEnums.BattleState.BattleOver)
+        {
+            return true;
+        }
+        Enemies.RemoveAll(e => e.IsDead);
+        if (Enemies.Count == 0)
+        {
+             Outcome = GameEnums.BattleOutcome.Victory;
+             State = GameEnums.BattleState.BattleOver;
+            return true;
+        }
+        if (Player.IsDead)
+        {
+            Outcome = GameEnums.BattleOutcome.Defeat;
+            State = GameEnums.BattleState.BattleOver;
+            return true;
+        }
+        Outcome = GameEnums.BattleOutcome.Ongoing;
+        return false;
     }
 }
